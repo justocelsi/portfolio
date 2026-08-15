@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+/* ===========================================================================
+   REGLAS DEL SISTEMA VISUAL
+   Si algo en la página no cumple una de estas, está mal la página, no la regla.
+
+   1. DOS EJES DE ALINEACIÓN Y NINGUNO MÁS.
+      Columna de rótulo (izquierda, fija) y columna de contenido. Todo arranca
+      en uno de esos dos bordes. Prohibido `justify-between`, `text-center` y
+      `text-right`: cada uno inventa un eje nuevo.
+
+   2. LA TIPOGRAFÍA DICE QUÉ TIPO DE DATO ES.
+      Mono  → todo lo que una máquina generó o verificaría: tecnologías, URLs,
+              fechas, números, estados, rótulos de sección.
+      Sans  → prosa escrita por una persona.
+      No hay una tercera fuente y no se mezclan dentro de una misma frase.
+
+   3. ESCALA TIPOGRÁFICA CERRADA. Cinco tamaños:
+      display (nombre) · title (h3) · body · label · micro (mono, rótulos).
+      Nada fuera de esos cinco.
+
+   4. EL COLOR ES CATEGORÍA, NUNCA DECORACIÓN. Cuatro trabajos, cuatro colores:
+      - accent  → una sola cosa: es clickeable.
+      - cat-*   → a qué familia pertenece una tecnología.
+      - ok      → estado verificable (un deploy que responde).
+      - tinta   → todo el resto del texto.
+      Los cat-* son swatches y fondos, NUNCA color de texto: el trío está
+      validado para daltonismo, no para contraste de lectura. El texto siempre
+      va en tinta.
+
+   5. TRES HUES ES EL TECHO, NO UNA PREFERENCIA.
+      Verificado con el validador de paletas sobre estas superficies: cualquier
+      cuarto hue (violeta, magenta, rojo, amarillo) rompe la separación mínima
+      de daltonismo en modo oscuro contra el trío base. El cuarto grupo va en
+      neutro a propósito — y de paso ordena la jerarquía.
+
+   6. UN RADIO, UN BORDE, UNA ESCALA DE ESPACIADO.
+      Radio 6px salvo la ventana de proyecto (10px, porque simula una app).
+      Un solo grosor de borde. Espaciado en múltiplos de 4.
+   =========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  --background: #fbfbfa;
+  --surface: #ffffff;
+  --border: #e4e4e2;
+  --foreground: #16161a;
+  --muted: #6b6b73;
+
+  /* Accent: paso oscuro de la familia aqua, elegido por contraste de texto. */
+  --accent: #2f7a68;
+  --accent-soft: rgba(47, 122, 104, 0.12);
+
+  /* Categóricos: slots 1-3 de la paleta validada. Solo swatch/fondo. */
+  --cat-datos: #2a78d6;
+  --cat-codigo: #eb6834;
+  --cat-web: #1baf7a;
+  --cat-neutro: #8e8e99;
+
+  --cat-datos-soft: rgba(42, 120, 214, 0.1);
+  --cat-codigo-soft: rgba(235, 104, 52, 0.1);
+  --cat-web-soft: rgba(27, 175, 122, 0.1);
+  --cat-neutro-soft: rgba(142, 142, 153, 0.1);
+
+  /* Estado. Reservado: nunca se usa como categoría. */
+  --ok: #0ca30c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --background: #0b0b0d;
+    --surface: #131317;
+    --border: #26262c;
+    --foreground: #ededf0;
+    --muted: #9292a0;
+
+    --accent: #5eead4;
+    --accent-soft: rgba(94, 234, 212, 0.1);
+
+    /* Mismos hues, escalonados para la superficie oscura. No es un flip. */
+    --cat-datos: #3987e5;
+    --cat-codigo: #d95926;
+    --cat-web: #199e70;
+    --cat-neutro: #7e7e8c;
+
+    --cat-datos-soft: rgba(57, 135, 229, 0.14);
+    --cat-codigo-soft: rgba(217, 89, 38, 0.14);
+    --cat-web-soft: rgba(25, 158, 112, 0.14);
+    --cat-neutro-soft: rgba(126, 126, 140, 0.14);
+
+    --ok: #0ca30c;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-ok: var(--ok);
+
+  --color-cat-datos: var(--cat-datos);
+  --color-cat-codigo: var(--cat-codigo);
+  --color-cat-web: var(--cat-web);
+  --color-cat-neutro: var(--cat-neutro);
+
+  --color-cat-datos-soft: var(--cat-datos-soft);
+  --color-cat-codigo-soft: var(--cat-codigo-soft);
+  --color-cat-web-soft: var(--cat-web-soft);
+  --color-cat-neutro-soft: var(--cat-neutro-soft);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --radius: 6px;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+/* Regla 2: los números en mono alinean en columna. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
