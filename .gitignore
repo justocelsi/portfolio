@@ -28,6 +28,7 @@
 *.pdf
 # El CV sí se versiona: la landing lo enlaza (npm run cv).
 !public/cv-justo-celsi.pdf
+!public/cv-justo-celsi-en.pdf
 
 # debug
 npm-debug.log*

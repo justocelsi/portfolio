@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Imprime /cv a public/cv-justo-celsi.pdf (A4).
+# Imprime /cv y /cv/en a public/cv-justo-celsi.pdf y public/cv-justo-celsi-en.pdf (A4).
 #
 #   npm run cv
 #
@@ -35,7 +35,11 @@ for _ in $(seq 1 60); do
   sleep 1
 done
 
-"$CHROME" --headless=new --no-sandbox --disable-gpu --no-pdf-header-footer \
-  --print-to-pdf="public/cv-justo-celsi.pdf" "http://localhost:$PUERTO/cv" 2>/dev/null
-
-echo "public/cv-justo-celsi.pdf"
+# Castellano (/cv) e inglés (/cv/en).
+for par in "cv|cv-justo-celsi" "cv/en|cv-justo-celsi-en"; do
+  ruta="${par%%|*}"
+  archivo="public/${par##*|}.pdf"
+  "$CHROME" --headless=new --no-sandbox --disable-gpu --no-pdf-header-footer \
+    --print-to-pdf="$archivo" "http://localhost:$PUERTO/$ruta" 2>/dev/null
+  echo "$archivo"
+done

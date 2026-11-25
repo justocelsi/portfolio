@@ -129,6 +129,7 @@ function Hero() {
         <Externo href={perfil.links.github}>GitHub</Externo>
         <Externo href={perfil.links.linkedin}>LinkedIn</Externo>
         <Externo href={perfil.links.cv}>CV (PDF)</Externo>
+        <Externo href={perfil.links.cvEn}>CV in English</Externo>
         <Externo href={`mailto:${perfil.links.email}`}>
           {perfil.links.email}
         </Externo>

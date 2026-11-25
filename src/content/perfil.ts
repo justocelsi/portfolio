@@ -29,6 +29,7 @@ export const perfil = {
     email: "justocelsi@gmail.com",
     // Lo genera `npm run cv` desde /cv, que lee este mismo archivo.
     cv: "/cv-justo-celsi.pdf",
+    cvEn: "/cv-justo-celsi-en.pdf",
   },
 } as const;
 
