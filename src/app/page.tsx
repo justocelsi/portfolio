@@ -193,7 +193,7 @@ function Ventana({ p }: { p: Proyecto }) {
   const host = p.demo.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
   return (
-    <figure className="mt-5 overflow-hidden rounded-[10px] border border-border bg-surface">
+    <figure className="mt-5 overflow-hidden rounded-[10px] border border-border bg-surface lg:mt-0">
       <div className="flex items-center gap-3 border-b border-border px-3 py-2.5">
         <span aria-hidden="true" className="flex gap-1.5">
           <span className="size-2.5 rounded-full bg-border" />
@@ -239,39 +239,61 @@ function Proyectos() {
   return (
     <Seccion rotulo="Proyectos">
       <ol className="grid gap-16">
-        {proyectos.map((p) => (
-          <li key={p.nombre}>
-            <Titulo>{p.nombre}</Titulo>
-            <Micro className="mt-1.5">{p.tagline}</Micro>
-
-            <Ventana p={p} />
-
-            <p className="mt-5 max-w-[68ch] leading-relaxed text-muted">
-              {p.descripcion}
-            </p>
-
-            {p.destacado && (
-              <p className="mt-4 max-w-[68ch] border-l-2 border-accent bg-accent-soft py-2 pl-4">
-                {p.destacado}
-              </p>
-            )}
-
-            <ul className="mt-5 flex flex-wrap gap-2">
-              {p.stack.map((t) => (
-                <Chip key={t} tono={tonoDe(t)}>
-                  {t}
-                </Chip>
-              ))}
-            </ul>
-
-            {(p.demo || p.repo) && (
-              <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
-                {p.demo && <Externo href={p.demo}>Ver en vivo</Externo>}
-                {p.repo && <Externo href={p.repo}>Código</Externo>}
+        {proyectos.map((p) => {
+          // Con captura, en pantallas anchas la ventana va a la izquierda y el
+          // texto al lado: apiladas, cada captura ocupaba el ancho entero y la
+          // página medía cinco pantallas de puro screenshot. En el celu queda
+          // como antes: título, ventana, texto.
+          const conVentana = Boolean(p.demo && p.captura);
+          return (
+            <li
+              key={p.nombre}
+              className={
+                conVentana
+                  ? "grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:grid-rows-[auto_1fr] lg:gap-x-10"
+                  : undefined
+              }
+            >
+              <div className={conVentana ? "lg:col-start-2 lg:row-start-1" : undefined}>
+                <Titulo>{p.nombre}</Titulo>
+                <Micro className="mt-1.5">{p.tagline}</Micro>
               </div>
-            )}
-          </li>
-        ))}
+
+              {conVentana && (
+                <div className="lg:col-start-1 lg:row-span-2 lg:row-start-1">
+                  <Ventana p={p} />
+                </div>
+              )}
+
+              <div className={conVentana ? "lg:col-start-2" : undefined}>
+                <p className="mt-5 max-w-[68ch] leading-relaxed text-muted">
+                  {p.descripcion}
+                </p>
+
+                {p.destacado && (
+                  <p className="mt-4 max-w-[68ch] border-l-2 border-accent bg-accent-soft py-2 pl-4">
+                    {p.destacado}
+                  </p>
+                )}
+
+                <ul className="mt-5 flex flex-wrap gap-2">
+                  {p.stack.map((t) => (
+                    <Chip key={t} tono={tonoDe(t)}>
+                      {t}
+                    </Chip>
+                  ))}
+                </ul>
+
+                {(p.demo || p.repo) && (
+                  <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+                    {p.demo && <Externo href={p.demo}>Ver en vivo</Externo>}
+                    {p.repo && <Externo href={p.repo}>Código</Externo>}
+                  </div>
+                )}
+              </div>
+            </li>
+          );
+        })}
       </ol>
     </Seccion>
   );

@@ -17,7 +17,7 @@ SITIOS=(
   "cisur|https://cisur.vercel.app"
   "picnic|https://picniczine.vercel.app"
   "roguelike|https://roguelike-opal.vercel.app"
-  "elposeido|https://justocel.github.io/elposeido"
+  "elposeido|https://justocelsi.github.io/elposeido"
 )
 
 CHROME="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"

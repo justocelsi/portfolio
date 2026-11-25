@@ -127,7 +127,7 @@ export const proyectos: Proyecto[] = [
     descripcion:
       "Ingiere de cinco fuentes —Jira, Google Calendar, notas del teléfono, cronogramas de cátedra y listas propias— y decide qué conviene hacer ahora. Rota por «última vez consultada», así ninguna tarea queda enterrada en el backlog.",
     stack: ["Python", "SQLite", "PostgreSQL", "Neon", "YAML"],
-    destacado: "~430 tareas y ~3.900 notas unificadas en un warehouse consultable",
+    destacado: "Más de 1.100 tareas y 3.650 notas unificadas en un warehouse consultable",
   },
   {
     nombre: "Picnic",
@@ -166,6 +166,16 @@ export const proyectos: Proyecto[] = [
     actualizado: "2026-08-13",
   },
   {
+    nombre: "RedBaires",
+    tagline: "Simulador de eventos discretos",
+    descripcion:
+      "Simula cómo se difunde un rumor en una red social y compara tres políticas para frenarlo: más moderadores, un límite a los reenvíos o menos alcance para las cuentas coordinadas. Trabajo práctico grupal de Investigación de Operaciones II en el ITBA.",
+    stack: ["Python", "SimPy", "Jupyter"],
+    repo: "https://github.com/justocelsi/io2-tp3-redbaires",
+    creado: "2026-09-25",
+    actualizado: "2026-11-12",
+  },
+  {
     nombre: "py-data-pipeline-template",
     tagline: "Scaffold de proyectos de datos",
     descripcion:
@@ -201,7 +211,7 @@ export type Formacion = {
 export const formacion: Formacion = {
   titulo: "Licenciatura en Analítica Social y Empresarial (Data Science)",
   institucion: "ITBA — Instituto Tecnológico de Buenos Aires",
-  detalle: "Tercer año, en curso.",
+  detalle: "Me quedan dos materias obligatorias, Simulación y el Proyecto Final. Me recibo a fines de 2027.",
   cursando: [
     "82.05 Análisis Predictivo",
     "11.86 Investigación de Operaciones I",
