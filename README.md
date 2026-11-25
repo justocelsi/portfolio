@@ -2,6 +2,12 @@
 
 Landing personal. Next.js 16, Tailwind 4, deploy en Vercel.
 
+Publicada en **https://justocelsi.vercel.app**. Vercel está conectado al repo desde el 25/11/2026:
+cada push a `main` publica solo, y un push a otra rama arma una versión de prueba con su propia URL.
+
+**Los PDF del CV no se regeneran en Vercel.** Si cambia algo del CV, correr `npm run cv` antes del
+push (imprime `/cv` y `/cv/en` a `public/`).
+
 ## Editar el contenido
 
 Todo el texto vive en [`src/content/perfil.ts`](src/content/perfil.ts). Para
