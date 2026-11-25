@@ -27,6 +27,7 @@ export const perfil = {
     github: "https://github.com/justocelsi",
     linkedin: "https://www.linkedin.com/in/justocelsi/",
     email: "justocelsi@gmail.com",
+    web: "https://justocelsi.vercel.app",
     // Lo genera `npm run cv` desde /cv, que lee este mismo archivo.
     cv: "/cv-justo-celsi.pdf",
     cvEn: "/cv-justo-celsi-en.pdf",

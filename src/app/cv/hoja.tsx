@@ -10,7 +10,7 @@ export type ContenidoCV = {
   nombre: string;
   rol: string;
   ubicacion: string;
-  links: { email: string; github: string; linkedin: string };
+  links: { email: string; github: string; linkedin: string; web: string };
   rotulos: { experiencia: string; proyectos: string; formacion: string; herramientas: string };
   experiencia: Experiencia[];
   /** Ya filtrados: sólo los que entran en el CV. */
@@ -47,7 +47,7 @@ export function Hoja({ c }: { c: ContenidoCV }) {
         <p className="mt-0.5 text-[12pt]">{c.rol}</p>
         <p className="mt-2 font-mono text-[8.5pt] text-muted">
           {c.ubicacion} · {c.links.email} · {sinEsquema(c.links.github)} ·{" "}
-          {sinEsquema(c.links.linkedin)}
+          {sinEsquema(c.links.linkedin)} · {sinEsquema(c.links.web)}
         </p>
       </header>
 
