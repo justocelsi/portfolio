@@ -26,6 +26,8 @@
 
 # material de referencia con copyright: no va a un repo publico
 *.pdf
+# El CV sí se versiona: la landing lo enlaza (npm run cv).
+!public/cv-justo-celsi.pdf
 
 # debug
 npm-debug.log*

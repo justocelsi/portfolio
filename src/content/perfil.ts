@@ -15,18 +15,20 @@
 
 export const perfil = {
   nombre: "Justo Celsi",
-  rol: "Jr. Data Scientist",
+  rol: "Data Engineer",
   empresa: "Stealth AI startup",
   ubicacion: "Buenos Aires, Argentina",
 
   // Una línea. Es lo único que lee alguien que abre la página 8 segundos.
   bajada:
-    "Jr. Data Scientist en una startup de IA en stealth y estudiante de la Licenciatura en Analítica Social y Empresarial en el ITBA.",
+    "Data Engineer en una startup de IA en stealth y estudiante de la Licenciatura en Analítica Social y Empresarial en el ITBA.",
 
   links: {
     github: "https://github.com/justocelsi",
     linkedin: "https://www.linkedin.com/in/justocelsi/",
     email: "justocelsi@gmail.com",
+    // Lo genera `npm run cv` desde /cv, que lee este mismo archivo.
+    cv: "/cv-justo-celsi.pdf",
   },
 } as const;
 
@@ -89,7 +91,7 @@ export type Experiencia = {
  */
 export const experiencia: Experiencia[] = [
   {
-    rol: "Jr. Data Scientist",
+    rol: "Data Engineer",
     empresa: "Stealth AI startup",
     periodo: "Mayo 2026 — presente",
     resumen:
@@ -118,6 +120,8 @@ export type Proyecto = {
   actualizado?: string;
   /** Un solo dato duro, si lo hay. */
   destacado?: string;
+  /** false → sale en la landing pero no en el CV (que es de una carilla). */
+  enCV?: boolean;
 };
 
 export const proyectos: Proyecto[] = [
@@ -155,6 +159,9 @@ export const proyectos: Proyecto[] = [
   },
   {
     nombre: "Vigilia",
+    // Fuera del CV: es un juego, no un proyecto de datos. Criterio: el CV es
+    // de data engineer y entra en una carilla.
+    enCV: false,
     tagline: "Roguelike por turnos",
     descripcion:
       "Roguelike de combate por turnos donde el resultado de cada decisión es incierto. Jugable en el navegador, con pixel art propio.",
@@ -187,6 +194,9 @@ export const proyectos: Proyecto[] = [
   },
   {
     nombre: "El Poseído",
+    // Fuera del CV: es un juego, no un proyecto de datos. Criterio: el CV es
+    // de data engineer y entra en una carilla.
+    enCV: false,
     tagline: "Juego de cartas",
     descripcion:
       "Juego de cartas de empatía e intuición. La app es el paso intermedio hacia la versión física de mesa.",

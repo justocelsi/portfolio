@@ -128,6 +128,7 @@ function Hero() {
       <nav className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2">
         <Externo href={perfil.links.github}>GitHub</Externo>
         <Externo href={perfil.links.linkedin}>LinkedIn</Externo>
+        <Externo href={perfil.links.cv}>CV (PDF)</Externo>
         <Externo href={`mailto:${perfil.links.email}`}>
           {perfil.links.email}
         </Externo>

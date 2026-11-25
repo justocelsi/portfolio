@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "capturas": "bash scripts/capturas.sh"
+    "capturas": "bash scripts/capturas.sh",
+    "cv": "bash scripts/cv.sh"
   },
   "dependencies": {
     "next": "16.3.1",
