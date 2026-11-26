@@ -14,6 +14,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 SITIOS=(
+  "ib|https://ib-dermoestetica.vercel.app"
   "cisur|https://cisur.vercel.app"
   "picnic|https://picniczine.vercel.app"
   "roguelike|https://roguelike-opal.vercel.app"

@@ -2,6 +2,7 @@ import Image from "next/image";
 import {
   experiencia,
   formacion,
+  gruposDeProyecto,
   perfil,
   proyectos,
   skills,
@@ -237,66 +238,105 @@ function Ventana({ p }: { p: Proyecto }) {
   );
 }
 
+/** El cuerpo de un proyecto: lo mismo con ventana o en tarjeta. */
+function CuerpoProyecto({ p }: { p: Proyecto }) {
+  return (
+    <>
+      <p className="mt-4 max-w-[68ch] leading-relaxed text-muted">{p.descripcion}</p>
+
+      {p.destacado && (
+        <p className="mt-4 max-w-[68ch] border-l-2 border-accent bg-accent-soft py-2 pl-4">
+          {p.destacado}
+        </p>
+      )}
+
+      <ul className="mt-5 flex flex-wrap gap-2">
+        {p.stack.map((t) => (
+          <Chip key={t} tono={tonoDe(t)}>
+            {t}
+          </Chip>
+        ))}
+      </ul>
+
+      {(p.demo || p.repo) && (
+        <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+          {p.demo && <Externo href={p.demo}>Ver en vivo</Externo>}
+          {p.repo && <Externo href={p.repo}>Código</Externo>}
+        </div>
+      )}
+    </>
+  );
+}
+
+/**
+ * Proyecto con deploy: en pantallas anchas la ventana va a la izquierda y el
+ * texto al lado. Apiladas, cada captura ocupaba el ancho entero y la página
+ * medía cinco pantallas de screenshot. En el celu: título, ventana, texto.
+ */
+function ProyectoConVentana({ p }: { p: Proyecto }) {
+  return (
+    <li className="grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:grid-rows-[auto_1fr] lg:gap-x-10">
+      <div className="lg:col-start-2 lg:row-start-1">
+        <Titulo>{p.nombre}</Titulo>
+        <Micro className="mt-1.5">{p.tagline}</Micro>
+      </div>
+      <div className="lg:col-start-1 lg:row-span-2 lg:row-start-1">
+        <Ventana p={p} />
+      </div>
+      <div className="lg:col-start-2">
+        <CuerpoProyecto p={p} />
+      </div>
+    </li>
+  );
+}
+
+/**
+ * Proyecto sin deploy (repos y herramientas): tarjeta. En grilla, así tres
+ * proyectos de datos se leen de un vistazo en vez de quedar como texto suelto
+ * entre dos capturas.
+ */
+function ProyectoTarjeta({ p }: { p: Proyecto }) {
+  return (
+    <li className="flex flex-col rounded-[6px] border border-border bg-surface p-5">
+      <Titulo>{p.nombre}</Titulo>
+      <Micro className="mt-1.5">{p.tagline}</Micro>
+      <CuerpoProyecto p={p} />
+    </li>
+  );
+}
+
 function Proyectos() {
   return (
     <Seccion rotulo="Proyectos">
-      <ol className="grid gap-16">
-        {proyectos.map((p) => {
-          // Con captura, en pantallas anchas la ventana va a la izquierda y el
-          // texto al lado: apiladas, cada captura ocupaba el ancho entero y la
-          // página medía cinco pantallas de puro screenshot. En el celu queda
-          // como antes: título, ventana, texto.
-          const conVentana = Boolean(p.demo && p.captura);
+      <div className="grid gap-16">
+        {gruposDeProyecto.map((g) => {
+          const del = proyectos.filter((p) => p.grupo === g.id);
+          if (del.length === 0) return null;
+          const conVentana = del.filter((p) => p.demo && p.captura);
+          const tarjetas = del.filter((p) => !(p.demo && p.captura));
           return (
-            <li
-              key={p.nombre}
-              className={
-                conVentana
-                  ? "grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:grid-rows-[auto_1fr] lg:gap-x-10"
-                  : undefined
-              }
-            >
-              <div className={conVentana ? "lg:col-start-2 lg:row-start-1" : undefined}>
-                <Titulo>{p.nombre}</Titulo>
-                <Micro className="mt-1.5">{p.tagline}</Micro>
-              </div>
-
-              {conVentana && (
-                <div className="lg:col-start-1 lg:row-span-2 lg:row-start-1">
-                  <Ventana p={p} />
-                </div>
-              )}
-
-              <div className={conVentana ? "lg:col-start-2" : undefined}>
-                <p className="mt-5 max-w-[68ch] leading-relaxed text-muted">
-                  {p.descripcion}
-                </p>
-
-                {p.destacado && (
-                  <p className="mt-4 max-w-[68ch] border-l-2 border-accent bg-accent-soft py-2 pl-4">
-                    {p.destacado}
-                  </p>
-                )}
-
-                <ul className="mt-5 flex flex-wrap gap-2">
-                  {p.stack.map((t) => (
-                    <Chip key={t} tono={tonoDe(t)}>
-                      {t}
-                    </Chip>
+            <div key={g.id}>
+              <Micro className="border-b border-border pb-3">
+                {g.titulo} <span className="tabular">· {del.length}</span>
+              </Micro>
+              {conVentana.length > 0 && (
+                <ol className="mt-8 grid gap-16">
+                  {conVentana.map((p) => (
+                    <ProyectoConVentana key={p.nombre} p={p} />
                   ))}
-                </ul>
-
-                {(p.demo || p.repo) && (
-                  <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
-                    {p.demo && <Externo href={p.demo}>Ver en vivo</Externo>}
-                    {p.repo && <Externo href={p.repo}>Código</Externo>}
-                  </div>
-                )}
-              </div>
-            </li>
+                </ol>
+              )}
+              {tarjetas.length > 0 && (
+                <ol className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                  {tarjetas.map((p) => (
+                    <ProyectoTarjeta key={p.nombre} p={p} />
+                  ))}
+                </ol>
+              )}
+            </div>
           );
         })}
-      </ol>
+      </div>
     </Seccion>
   );
 }

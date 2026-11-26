@@ -107,8 +107,21 @@ export const experiencia: Experiencia[] = [
   },
 ];
 
+/**
+ * Los proyectos van agrupados. El orden de los grupos es el orden en la página:
+ * datos primero porque el rol es Data Engineer.
+ */
+export const gruposDeProyecto = [
+  { id: "datos", titulo: "Datos" },
+  { id: "webs", titulo: "Webs en producción" },
+  { id: "juegos", titulo: "Juegos" },
+] as const;
+
+export type GrupoDeProyecto = (typeof gruposDeProyecto)[number]["id"];
+
 export type Proyecto = {
   nombre: string;
+  grupo: GrupoDeProyecto;
   tagline: string;
   descripcion: string;
   stack: string[];
@@ -129,6 +142,7 @@ export type Proyecto = {
 export const proyectos: Proyecto[] = [
   {
     nombre: "Taskmaster",
+    grupo: "datos",
     tagline: "Plataforma de datos personal",
     descripcion:
       "Ingiere de cinco fuentes —Jira, Google Calendar, notas del teléfono, cronogramas de cátedra y listas propias— y decide qué conviene hacer ahora. Rota por «última vez consultada», así ninguna tarea queda enterrada en el backlog.",
@@ -136,7 +150,58 @@ export const proyectos: Proyecto[] = [
     destacado: "Más de 1.100 tareas y 3.650 notas unificadas en un warehouse consultable",
   },
   {
+    nombre: "RedBaires",
+    grupo: "datos",
+    tagline: "Simulador de eventos discretos",
+    descripcion:
+      "Simula cómo se difunde un rumor en una red social y compara tres políticas para frenarlo: más moderadores, un límite a los reenvíos o menos alcance para las cuentas coordinadas. Trabajo práctico grupal de Investigación de Operaciones II en el ITBA.",
+    stack: ["Python", "SimPy", "Jupyter"],
+    repo: "https://github.com/justocelsi/io2-tp3-redbaires",
+    creado: "2026-09-25",
+    actualizado: "2026-11-12",
+  },
+  {
+    nombre: "py-data-pipeline-template",
+    grupo: "datos",
+    tagline: "Scaffold de proyectos de datos",
+    descripcion:
+      "El template con el que arranco cualquier pipeline: uv, ruff, logging configurado, Postgres opcional y tests desde el primer commit.",
+    stack: ["Python", "uv", "pytest", "PostgreSQL"],
+    repo: "https://github.com/justocelsi/py-data-pipeline-template",
+    creado: "2026-05-29",
+    actualizado: "2026-05-29",
+  },
+  {
+    nombre: "IB Dermoestética",
+    grupo: "webs",
+    tagline: "Sitio editable para un centro de estética",
+    descripcion:
+      "Sitio de un centro de dermoestética en Mar del Plata. La dueña cambia todo tocándolo, sin pedirle nada a un programador: textos, tratamientos, profesionales, galería, preguntas frecuentes y testimonios. Es la tercera web con el mismo esqueleto que CISUR y Picnic.",
+    stack: ["Next.js", "Supabase", "Vercel"],
+    demo: "https://ib-dermoestetica.vercel.app",
+    // El repo es privado: no hay link a código.
+    captura: "/shot-ib.png",
+    creado: "2026-09-10",
+    actualizado: "2026-11-18",
+    // Fuera del CV: es de una carilla y ya tiene dos webs (CISUR y Picnic).
+    enCV: false,
+  },
+  {
+    nombre: "CISUR",
+    grupo: "webs",
+    tagline: "Plataforma de materiales educativos",
+    descripcion:
+      "Catálogo de materiales, cuentas de usuario, entrega de PDFs y cobros para un centro de alfabetización. La administra su dueña sin tocar código.",
+    stack: ["Next.js", "Supabase", "Mercado Pago", "Vercel"],
+    demo: "https://cisur.vercel.app",
+    repo: "https://github.com/justocelsi/cisur",
+    captura: "/shot-cisur.png",
+    creado: "2026-07-29",
+    actualizado: "2026-11-18",
+  },
+  {
     nombre: "Picnic",
+    grupo: "webs",
     tagline: "E-commerce editorial",
     descripcion:
       "Tienda y sitio de contenidos para una revista de arte. Checkout con Mercado Pago confirmado por webhook firmado, carrito persistido en base por usuario y una estantería 3D para elegir la edición. Trabajo final de Programación Web en el ITBA.",
@@ -148,19 +213,8 @@ export const proyectos: Proyecto[] = [
     actualizado: "2026-07-08",
   },
   {
-    nombre: "CISUR",
-    tagline: "Plataforma de materiales educativos",
-    descripcion:
-      "Catálogo de materiales, cuentas de usuario, entrega de PDFs y cobros para un centro de alfabetización. La administra su dueña sin tocar código.",
-    stack: ["Next.js", "Supabase", "Mercado Pago", "Vercel"],
-    demo: "https://cisur.vercel.app",
-    repo: "https://github.com/justocelsi/cisur",
-    captura: "/shot-cisur.png",
-    creado: "2026-07-29",
-    actualizado: "2026-08-06",
-  },
-  {
     nombre: "Vigilia",
+    grupo: "juegos",
     // Fuera del CV: es un juego, no un proyecto de datos. Criterio: el CV es
     // de data engineer y entra en una carilla.
     enCV: false,
@@ -175,27 +229,8 @@ export const proyectos: Proyecto[] = [
     actualizado: "2026-08-13",
   },
   {
-    nombre: "RedBaires",
-    tagline: "Simulador de eventos discretos",
-    descripcion:
-      "Simula cómo se difunde un rumor en una red social y compara tres políticas para frenarlo: más moderadores, un límite a los reenvíos o menos alcance para las cuentas coordinadas. Trabajo práctico grupal de Investigación de Operaciones II en el ITBA.",
-    stack: ["Python", "SimPy", "Jupyter"],
-    repo: "https://github.com/justocelsi/io2-tp3-redbaires",
-    creado: "2026-09-25",
-    actualizado: "2026-11-12",
-  },
-  {
-    nombre: "py-data-pipeline-template",
-    tagline: "Scaffold de proyectos de datos",
-    descripcion:
-      "El template con el que arranco cualquier pipeline: uv, ruff, logging configurado, Postgres opcional y tests desde el primer commit.",
-    stack: ["Python", "uv", "pytest", "PostgreSQL"],
-    repo: "https://github.com/justocelsi/py-data-pipeline-template",
-    creado: "2026-05-29",
-    actualizado: "2026-05-29",
-  },
-  {
     nombre: "El Poseído",
+    grupo: "juegos",
     // Fuera del CV: es un juego, no un proyecto de datos. Criterio: el CV es
     // de data engineer y entra en una carilla.
     enCV: false,
@@ -224,9 +259,4 @@ export const formacion: Formacion = {
   titulo: "Licenciatura en Analítica Social y Empresarial (Data Science)",
   institucion: "ITBA — Instituto Tecnológico de Buenos Aires",
   detalle: "Me quedan dos materias obligatorias, Simulación y el Proyecto Final. Me recibo a fines de 2027.",
-  cursando: [
-    "82.05 Análisis Predictivo",
-    "11.86 Investigación de Operaciones I",
-    "11.87 Investigación de Operaciones II",
-  ],
 };
