@@ -26,7 +26,7 @@ function Micro({
 }) {
   return (
     <p
-      className={`font-mono text-[11px] uppercase tracking-[0.16em] text-muted ${className}`}
+      className={`font-mono text-[13px] uppercase tracking-[0.1em] text-muted ${className}`}
     >
       {children}
     </p>
@@ -43,10 +43,8 @@ function Seccion({
 }) {
   return (
     <section className="border-t border-border py-14 sm:py-20">
-      <div className="grid gap-6 sm:grid-cols-[7rem_1fr] sm:gap-10">
-        <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
-          {rotulo}
-        </h2>
+      <div className="grid gap-8">
+        <h2 className="text-2xl font-semibold tracking-tight">{rotulo}</h2>
         <div className="min-w-0">{children}</div>
       </div>
     </section>
@@ -56,7 +54,7 @@ function Seccion({
 /** Regla 3: el título de cualquier ítem. Un solo tamaño en toda la página. */
 function Titulo({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="text-lg font-semibold tracking-tight">{children}</h3>
+    <h3 className="text-xl font-semibold tracking-tight">{children}</h3>
   );
 }
 
@@ -87,7 +85,7 @@ function Chip({
 }) {
   return (
     <li
-      className={`rounded-[6px] border px-3 py-1.5 font-mono text-sm text-foreground ${TONO[tono]}`}
+      className={`rounded-[6px] border px-3 py-1.5 font-mono text-[15px] text-foreground ${TONO[tono]}`}
     >
       {children}
     </li>
@@ -98,7 +96,7 @@ function Chip({
 function Externo({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <a
-      className="font-mono text-sm text-accent underline decoration-transparent underline-offset-4 transition-colors hover:decoration-current"
+      className="font-mono text-[15px] text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-current"
       href={href}
     >
       {children}
@@ -122,7 +120,7 @@ function Hero() {
       <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl">
         {perfil.nombre}
       </h1>
-      <p className="mt-6 max-w-[68ch] text-lg leading-relaxed text-muted">
+      <p className="mt-6 max-w-[60ch] text-xl leading-relaxed text-muted">
         {perfil.bajada}
       </p>
 
@@ -134,7 +132,7 @@ function Hero() {
         <Externo href={`mailto:${perfil.links.email}`}>
           {perfil.links.email}
         </Externo>
-        <span className="font-mono text-sm text-muted">{perfil.ubicacion}</span>
+        <span className="font-mono text-[15px] text-muted">{perfil.ubicacion}</span>
       </nav>
     </header>
   );
@@ -203,7 +201,7 @@ function Ventana({ p }: { p: Proyecto }) {
           <span className="size-2.5 rounded-full bg-border" />
           <span className="size-2.5 rounded-full bg-border" />
         </span>
-        <span className="truncate font-mono text-xs text-muted">{host}</span>
+        <span className="truncate font-mono text-[13px] text-muted">{host}</span>
       </div>
 
       <a href={p.demo} className="block">
@@ -217,7 +215,7 @@ function Ventana({ p }: { p: Proyecto }) {
         />
       </a>
 
-      <figcaption className="flex flex-wrap items-center gap-x-6 gap-y-1.5 px-3 py-2.5 font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
+      <figcaption className="flex flex-wrap items-center gap-x-6 gap-y-1.5 px-3 py-2.5 font-mono text-[13px] uppercase tracking-[0.1em] text-muted">
         {/* Regla 4: el estado nunca viaja solo en el color. Punto + palabra. */}
         <span className="flex items-center gap-1.5 text-foreground">
           <span aria-hidden="true" className="size-2 rounded-full bg-ok" />
@@ -295,9 +293,11 @@ function ProyectoConVentana({ p }: { p: Proyecto }) {
  * proyectos de datos se leen de un vistazo en vez de quedar como texto suelto
  * entre dos capturas.
  */
-function ProyectoTarjeta({ p }: { p: Proyecto }) {
+function ProyectoTarjeta({ p, ancha = false }: { p: Proyecto; ancha?: boolean }) {
   return (
-    <li className="flex flex-col rounded-[6px] border border-border bg-surface p-5">
+    <li
+      className={`flex flex-col rounded-[6px] border border-border bg-surface p-6 ${ancha ? "md:col-span-2" : ""}`}
+    >
       <Titulo>{p.nombre}</Titulo>
       <Micro className="mt-1.5">{p.tagline}</Micro>
       <CuerpoProyecto p={p} />
@@ -327,9 +327,15 @@ function Proyectos() {
                 </ol>
               )}
               {tarjetas.length > 0 && (
-                <ol className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                  {tarjetas.map((p) => (
-                    <ProyectoTarjeta key={p.nombre} p={p} />
+                <ol className="mt-8 grid gap-4 md:grid-cols-2">
+                  {/* Con un número impar, la primera va a lo ancho: dos columnas
+                      con el texto a 18px, y la grilla cierra pareja. */}
+                  {tarjetas.map((p, i) => (
+                    <ProyectoTarjeta
+                      key={p.nombre}
+                      p={p}
+                      ancha={i === 0 && tarjetas.length % 2 === 1}
+                    />
                   ))}
                 </ol>
               )}
@@ -352,7 +358,7 @@ function Stack() {
                 aria-hidden="true"
                 className={`size-2.5 rounded-[2px] ${SWATCH[g.tono]}`}
               />
-              <h3 className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
+              <h3 className="font-mono text-[13px] uppercase tracking-[0.1em] text-muted">
                 {g.grupo}
               </h3>
             </div>
@@ -410,7 +416,7 @@ function Contacto() {
 
 export default function Home() {
   return (
-    <main className="mx-auto w-full max-w-[80rem] flex-1 px-6 sm:px-10">
+    <main className="mx-auto w-full max-w-[64rem] flex-1 px-6 sm:px-10">
       <Hero />
       <Experiencia />
       <Proyectos />

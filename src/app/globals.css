@@ -4,10 +4,12 @@
    REGLAS DEL SISTEMA VISUAL
    Si algo en la página no cumple una de estas, está mal la página, no la regla.
 
-   1. DOS EJES DE ALINEACIÓN Y NINGUNO MÁS.
-      Columna de rótulo (izquierda, fija) y columna de contenido. Todo arranca
-      en uno de esos dos bordes. Prohibido `justify-between`, `text-center` y
-      `text-right`: cada uno inventa un eje nuevo.
+   1. UNA COLUMNA CENTRADA, UN SOLO EJE.
+      Desde el 25/11/2026 la página es una columna de 64rem centrada en la
+      pantalla, y el rótulo de cada sección va arriba del contenido (antes iba
+      en una columna a la izquierda y el bloque quedaba corrido). Todo arranca
+      en el borde izquierdo de esa columna. Prohibido `justify-between`,
+      `text-center` y `text-right`: cada uno inventa un eje nuevo.
 
    2. LA TIPOGRAFÍA DICE QUÉ TIPO DE DATO ES.
       Mono  → todo lo que una máquina generó o verificaría: tecnologías, URLs,
@@ -15,9 +17,11 @@
       Sans  → prosa escrita por una persona.
       No hay una tercera fuente y no se mezclan dentro de una misma frase.
 
-   3. ESCALA TIPOGRÁFICA CERRADA. Cinco tamaños:
-      display (nombre) · title (h3) · body · label · micro (mono, rótulos).
-      Nada fuera de esos cinco.
+   3. ESCALA TIPOGRÁFICA CERRADA. Seis tamaños:
+      display (nombre) · sección (h2, 24px) · title (h3, 20px) · body (18px)
+      · label (mono, 15px) · micro (mono, 13px). Nada fuera de esos seis, y
+      nada por debajo de 13px. El h2 de sección se sumó el 25/11/2026: con el
+      rótulo arriba, la sección y el grupo de proyectos se veían iguales.
 
    4. EL COLOR ES CATEGORÍA, NUNCA DECORACIÓN. Cuatro trabajos, cuatro colores:
       - accent  → una sola cosa: es clickeable.
@@ -44,13 +48,13 @@
 
   --background: #fbfbfa;
   --surface: #ffffff;
-  --border: #e4e4e2;
+  --border: #d6d6d3;
   --foreground: #16161a;
-  --muted: #6b6b73;
+  --muted: #4b4b54; /* 8,3:1 sobre el fondo (antes #6b6b73, 5,1:1) */
 
   /* Accent: paso oscuro de la familia aqua, elegido por contraste de texto. */
-  --accent: #2f7a68;
-  --accent-soft: rgba(47, 122, 104, 0.12);
+  --accent: #1f5f50; /* 7,2:1 (antes #2f7a68, 4,9:1) */
+  --accent-soft: rgba(31, 95, 80, 0.1);
 
   /* Categóricos: slots 1-3 de la paleta validada. Solo swatch/fondo. */
   --cat-datos: #2a78d6;
@@ -73,9 +77,9 @@
 
     --background: #0b0b0d;
     --surface: #131317;
-    --border: #26262c;
+    --border: #34343c;
     --foreground: #ededf0;
-    --muted: #9292a0;
+    --muted: #b0b0bc; /* 9,2:1 (antes #9292a0, 6,4:1) */
 
     --accent: #5eead4;
     --accent-soft: rgba(94, 234, 212, 0.1);
@@ -122,6 +126,9 @@
 }
 
 body {
+  /* Cuerpo a 18px: el texto corrido se lee sin acercarse (pedido del 25/11/2026). */
+  font-size: 1.125rem;
+  line-height: 1.6;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
